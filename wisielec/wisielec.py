@@ -1,10 +1,12 @@
 import sys
+import os
 
 no_of_tries = 5
-word = 'kamila'
 used_letters = []
-
 user_word = []
+
+def cls():
+    os.system('cls' if os.name=='nt' else 'clear')
 
 def find_indexes(word, letter):
     indexes = []
@@ -18,14 +20,30 @@ def show_state_of_game():
     print()
     print(user_word)
     print('Pozostalo prob :', no_of_tries)
-    print('Uzyte ltery', used_letters)
+    print('Uzyte litery', used_letters)
     print()
+
+while True:
+    word = input('Podaj hasło dla drugiego gracza: ').lower()
+    if word.isalpha() != True:
+        print('To co wpisałeś nie jest słowem!')
+    else:
+        cls()        
+        break
 
 for letter in word:
     user_word.append('_')
 
 while True:
-    letter = input('Podaj litere: ')
+    show_state_of_game()
+    
+    while True:
+        letter = input('Podaj litere: ').lower()
+        if (letter.isalpha() == True and len(letter) == 1):
+            break
+        else:
+           print('To co wpisałeś nie jest litera!')
+
     used_letters.append(letter)
 
     found_indexes = find_indexes(word, letter)
@@ -34,14 +52,15 @@ while True:
         no_of_tries -=1
 
         if no_of_tries == 0:
-            print('Koniec gry')
+            print('Koniec gry!')
             sys.exit(0)
     else:
         for index in found_indexes:
             user_word[index] = letter
 
         if ''.join(user_word) == word:
+            cls()
+            show_state_of_game()
             print('Brawo! To jest to slowo')
             sys.exit(0)
 
-    show_state_of_game()
