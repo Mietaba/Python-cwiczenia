@@ -23,10 +23,13 @@ def show_state_of_game():
     print('Uzyte litery', used_letters)
     print()
 
-word = input('Podaj hasło dla drugiego gracza: ').lower()
-while word.isalpha() != True:
-    print('To co wpisałeś nie jest słowem!')
+
+while True:
     word = input('Podaj hasło dla drugiego gracza: ').lower()
+    if word.isalpha() == True:
+        break
+    else:
+        print('To co wpisałeś nie jest słowem!')        
 cls()
 
 for letter in word:
@@ -35,10 +38,12 @@ for letter in word:
 while True:
     show_state_of_game()
     
-    letter = input('Podaj litere: ').lower()
-    while (len(letter) != 1 or letter.isalpha() != True):
-        print('To co wpisałeś nie jest litera!')
+    while True:
         letter = input('Podaj litere: ').lower()
+        if len(letter) == 1 and letter.isalpha() == True:
+            break
+        else:
+            print('To co wpisałeś nie jest litera!')
 
     used_letters.append(letter)
 
